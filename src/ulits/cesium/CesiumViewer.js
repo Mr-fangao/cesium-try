@@ -33,7 +33,13 @@ export function CesiumViewer(containerId = "cesiumContainer", mode) {
   let viewer = new Cesium.Viewer(containerId, options);
   //添加底图
   viewer.layers = [];
-
+  // viewer.getInstance(() => {
+  //   if (viewer) {
+  //     return viewer;
+  //   } else {
+  //     return (viewer = new Cesium.Viewer(containerId, options));
+  //   }
+  // });
   // 列表复制
   Array.prototype.clone = function () {
     return JSON.parse(JSON.stringify(this));
@@ -109,16 +115,16 @@ export function CesiumViewer(containerId = "cesiumContainer", mode) {
  * @Date: 2022-01-04 10:31:27
  * @param {*} viewer
  */
-// function getExtent(viewer) {
-// 	let rectangle = viewer.camera.computeViewRectangle();
-// 	let extent = [
-// 		Cesium.Math.toDegrees(rectangle.west),
-// 		Cesium.Math.toDegrees(rectangle.south),
-// 		Cesium.Math.toDegrees(rectangle.east),
-// 		Cesium.Math.toDegrees(rectangle.north),
-// 	];
-// 	return extent;
-// }
+function getExtent(viewer) {
+  let rectangle = viewer.camera.computeViewRectangle();
+  let extent = [
+    Cesium.Math.toDegrees(rectangle.west),
+    Cesium.Math.toDegrees(rectangle.south),
+    Cesium.Math.toDegrees(rectangle.east),
+    Cesium.Math.toDegrees(rectangle.north),
+  ];
+  return extent;
+}
 
 /**
  * @Author: dongnan
@@ -126,27 +132,32 @@ export function CesiumViewer(containerId = "cesiumContainer", mode) {
  * @Date: 2021-07-31 17:45:25
  * @param {*} viewer
  */
-// function getResolution(viewer) {
-// 	let scene = viewer.scene;
-// 	// 获取画布的大小
-// 	let width = scene.canvas.clientWidth;
-// 	let height = scene.canvas.clientHeight;
-// 	//获取画布中心两个像素的坐标（默认地图渲染在画布中心位置）
-// 	let left = scene.camera.getPickRay(new Cartesian2((width / 2) | 0, (height - 1) / 2));
-// 	let right = scene.camera.getPickRay(new Cartesian2((1 + width / 2) | 0, (height - 1) / 2));
-// 	let globe = scene.globe;
-// 	let leftPosition = globe.pick(left, scene);
-// 	let rightPosition = globe.pick(right, scene);
-// 	if (!Cesium.defined(leftPosition) || !Cesium.defined(rightPosition)) {
-// 		return;
-// 	}
-// 	let leftCartographic = globe.ellipsoid.cartesianToCartographic(leftPosition);
-// 	let rightCartographic = globe.ellipsoid.cartesianToCartographic(rightPosition);
-// 	let geodesic = new Cesium.EllipsoidGeodesic();
-// 	geodesic.setEndPoints(leftCartographic, rightCartographic);
-// 	let distance = geodesic.surfaceDistance / 1000; //分辨率
-// 	return distance;
-// }
+function getResolution(viewer) {
+  let scene = viewer.scene;
+  // 获取画布的大小
+  let width = scene.canvas.clientWidth;
+  let height = scene.canvas.clientHeight;
+  //获取画布中心两个像素的坐标（默认地图渲染在画布中心位置）
+  let left = scene.camera.getPickRay(
+    new Cartesian2((width / 2) | 0, (height - 1) / 2)
+  );
+  let right = scene.camera.getPickRay(
+    new Cartesian2((1 + width / 2) | 0, (height - 1) / 2)
+  );
+  let globe = scene.globe;
+  let leftPosition = globe.pick(left, scene);
+  let rightPosition = globe.pick(right, scene);
+  if (!Cesium.defined(leftPosition) || !Cesium.defined(rightPosition)) {
+    return;
+  }
+  let leftCartographic = globe.ellipsoid.cartesianToCartographic(leftPosition);
+  let rightCartographic =
+    globe.ellipsoid.cartesianToCartographic(rightPosition);
+  let geodesic = new Cesium.EllipsoidGeodesic();
+  geodesic.setEndPoints(leftCartographic, rightCartographic);
+  let distance = geodesic.surfaceDistance / 1000; //分辨率
+  return distance;
+}
 
 /**
  * @Author: dongnan
@@ -154,7 +165,7 @@ export function CesiumViewer(containerId = "cesiumContainer", mode) {
  * @Date: 2022-01-04 13:54:05
  * @param {*} degree
  */
-// function degreeToMeter(degree) {
-// 	let meter = (degree / 360) * (2 * Math.PI * 6371004);
-// 	return meter;
-// }
+function degreeToMeter(degree) {
+  let meter = (degree / 360) * (2 * Math.PI * 6371004);
+  return meter;
+}

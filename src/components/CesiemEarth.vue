@@ -2,13 +2,13 @@
 import * as Cesium from "cesium";
 import { CesiumViewer } from "../ulits/cesium/CesiumViewer";
 
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 defineProps({
   // msg: String
 })
 onMounted(() => {
+  // console.log(Cesium.VERSION)
   CesiumViewer("cesiumContainer");
-  // console.log(window.viewer.scene)
   window.viewer.imageryLayers.remove(window.viewer.imageryLayers.get(0))
   let imagery = window.viewer.imageryLayers.addImageryProvider(
     new Cesium.ArcGisMapServerImageryProvider({
@@ -19,6 +19,9 @@ onMounted(() => {
   imagery.brightness = 0.9;
   addSkybox();
 });
+onUnmounted(() => {
+  window.viewer.destroy();
+})
 //添加天空盒
 function addSkybox() {
   let groundSkybox = new Cesium.SkyBox({

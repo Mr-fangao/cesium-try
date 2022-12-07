@@ -1,52 +1,60 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 defineProps({
     // msg: String
 })
-onMounted(() => {
-});
+const router = useRouter()
+const jumpTo = (e) => {
+    console.log(e)
+    router.push(e)
+};
 const tableData = [
     {
         name: "刘备",
-        nation: "蜀国",
-        bornPlace: "涿郡涿县（河北省涿州市）",
+        id: "1",
+        loc: "/CesiemEarth",
     },
     {
         name: "曹操",
-        nation: "魏国",
-        bornPlace: "沛国谯县（安徽省亳州市）",
+        id: "魏国",
+        loc: "/test1",
     },
     {
         name: "孙权",
-        nation: "吴国",
-        bornPlace: "吴郡富春县（浙江省杭州市富阳区）",
+        id: "吴国",
+        loc: "/test2",
     },
     {
         name: "关羽",
-        nation: "蜀国",
-        bornPlace: "河东郡解县（山西省运城市盐湖区解州镇）",
+        id: "蜀国",
+        loc: "河东郡解县（山西省运城市盐湖区解州镇）",
     },
     {
         name: "刘备",
-        nation: "蜀国1",
-        bornPlace: "涿郡涿县（河北省涿州市）",
+        id: "蜀国1",
+        loc: "涿郡涿县（河北省涿州市）",
     },
     {
         name: "曹操",
-        nation: "魏国1",
-        bornPlace: "沛国谯县（安徽省亳州市）",
+        id: "魏国1",
+        loc: "沛国谯县（安徽省亳州市）",
     },
     {
         name: "孙权",
-        nation: "吴国1",
-        bornPlace: "吴郡富春县（浙江省杭州市富阳区）",
+        id: "吴国1",
+        loc: "吴郡富春县（浙江省杭州市富阳区）",
     },
     {
         name: "关羽",
-        nation: "蜀国1",
-        bornPlace: "河东郡解县（山西省运城市盐湖区解州镇）",
+        id: "蜀国1",
+        loc: "河东郡解县（山西省运城市盐湖区解州镇）",
     },
 ]
+
+onMounted(() => {
+});
+
 const count = ref(0)
 </script>
 <template>
@@ -57,14 +65,18 @@ const count = ref(0)
                 <div class="category-part">
                     <div class="title">{{ "Cssium功能示例" }}</div>
                     <div class="optional-list">
-                        <div class="option" v-for="(item) in tableData" :key="item.nation">{{ item.name }}</div>
+                        <div class="option" v-for="(item) in tableData" :key="item.id" @click="jumpTo(item.loc)">{{
+                                item.name
+                        }}</div>
                     </div>
 
                 </div>
                 <div class="category-part">
                     <div class="title">{{ "Cssium功能示例" }}</div>
                     <div class="optional-list">
-                        <div class="option" v-for="(item) in tableData" :key="item.nation">{{ item.name }}</div>
+                        <div class="option" v-for="(item) in tableData" :key="item.id" @click="jumpTo(item.loc)">{{
+                                item.name
+                        }}</div>
                     </div>
 
                 </div>
@@ -82,7 +94,6 @@ const count = ref(0)
     display: flex;
     flex-direction: column;
     align-items: center;
-
     #Header {
         width: 100%;
         height: 10%;
@@ -129,9 +140,15 @@ const count = ref(0)
 
                     .option {
                         width: calc(100% / 6);
+                        text-align:center;
                         height: 25px;
                         margin-top: 5px;
                         float: left;
+                        cursor: pointer;
+                        color: #000000;
+                        &:hover {
+                            color: #116ed8;
+                        }
                     }
                 }
             }

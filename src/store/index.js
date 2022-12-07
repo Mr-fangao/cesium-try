@@ -5,6 +5,9 @@ export const store = createStore({
   plugins: [createPersistedState()],
   state: {
     finish: 9999999999666666666,
+    state:{
+      userId : ''
+    }
   },
   getters: {},
   mutations: {},
