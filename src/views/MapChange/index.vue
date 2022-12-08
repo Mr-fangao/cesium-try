@@ -5,27 +5,30 @@ import router from '../../router/index'
 defineProps({
   // msg: String
 })
-const checkedCities = ref(['Shanghai'])
-const cities = ['Shanghai', 'Beijing', 'Guangzhou', 'Shenzhen']
+
 onMounted(() => {
   // console.log(window.viewer)
   // window.viewer.imageryLayers.remove(window.viewer.imageryLayers.get(0));
 });
 onUnmounted(() => {
 })
-
+const radio1 = ref('New York')
 let key = computed(() => {
   return router.currentRoute.value.fullPath;
 })
+function getBaseMap(val){
+  console.log(val)
+}
 const count = ref(0)
 </script>
 <template>
   <div id="mapchange">
-    <el-checkbox-group v-model="checkedCities" :min="0" :max="1">
-    <el-checkbox-button v-for="city in cities" :key="city" :label="city">{{
-      city
-    }}</el-checkbox-button>
-  </el-checkbox-group>
+    <el-radio-group v-model="radio1" size="large" @change="getBaseMap">
+      <el-radio-button label="New York" />
+      <el-radio-button label="Washington" />
+      <el-radio-button label="Los Angeles" />
+      <el-radio-button label="Chicago" />
+    </el-radio-group>
   </div>
 </template>
 
