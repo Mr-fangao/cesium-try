@@ -9,7 +9,7 @@ const jumpTo = (e) => {
     console.log(e)
     router.push(e)
 };
-const tableData = [
+const CesiumExample = [
     {
         name: "刘备",
         id: "1",
@@ -51,7 +51,48 @@ const tableData = [
         loc: "河东郡解县（山西省运城市盐湖区解州镇）",
     },
 ]
-
+const Vue3Example = [
+    {
+        name: "类Hooks函数式编程",
+        id: "1",
+        loc: "/mixin",
+    },
+    {
+        name: "曹操",
+        id: "魏国",
+        loc: "/test1",
+    },
+    {
+        name: "孙权",
+        id: "吴国",
+        loc: "/test2",
+    },
+    {
+        name: "关羽",
+        id: "蜀国",
+        loc: "河东郡解县（山西省运城市盐湖区解州镇）",
+    },
+    {
+        name: "刘备",
+        id: "蜀国1",
+        loc: "涿郡涿县（河北省涿州市）",
+    },
+    {
+        name: "曹操",
+        id: "魏国1",
+        loc: "沛国谯县（安徽省亳州市）",
+    },
+    {
+        name: "孙权",
+        id: "吴国1",
+        loc: "吴郡富春县（浙江省杭州市富阳区）",
+    },
+    {
+        name: "关羽",
+        id: "蜀国1",
+        loc: "河东郡解县（山西省运城市盐湖区解州镇）",
+    },
+]
 onMounted(() => {
 });
 
@@ -63,18 +104,18 @@ const count = ref(0)
         <div id="MainPage">
             <div id="LeftSide" class="main-part">
                 <div class="category-part">
-                    <div class="title">{{ "Cssium功能示例" }}</div>
+                    <div class="title">{{ "CesiumExample" }}</div>
                     <div class="optional-list">
-                        <div class="option" v-for="(item) in tableData" :key="item.id" @click="jumpTo(item.loc)">{{
+                        <div class="option" v-for="(item) in CesiumExample" :key="item.id" @click="jumpTo(item.loc)">{{
                                 item.name
                         }}</div>
                     </div>
 
                 </div>
                 <div class="category-part">
-                    <div class="title">{{ "Cssium功能示例" }}</div>
+                    <div class="title">{{ "Vue3Example" }}</div>
                     <div class="optional-list">
-                        <div class="option" v-for="(item) in tableData" :key="item.id" @click="jumpTo(item.loc)">{{
+                        <div class="option" v-for="(item) in Vue3Example" :key="item.id" @click="jumpTo(item.loc)">{{
                                 item.name
                         }}</div>
                     </div>

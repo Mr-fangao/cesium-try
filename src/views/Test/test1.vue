@@ -3,6 +3,7 @@ import * as Cesium from "cesium";
 import CesiemEarth from "../../components/CesiemEarth.vue";
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import router from '../../router/index'
+import mapchange from '../MapChange/index.vue'
 defineProps({
   // msg: String
 })
@@ -20,7 +21,7 @@ onMounted(() => {
     new Cesium.UrlTemplateImageryProvider({
       url: "http://webst02.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scale=1&style=8",
       minimumLevel: 3,
-      maximumLevel: 18
+      maximumLevel: 18,
     })
   );
   newImagery.brightness = 1;
@@ -35,6 +36,7 @@ let key = computed(() => {
 const count = ref(0)
 </script>
 <template>
+  <mapchange></mapchange>
   <CesiemEarth :key="key" />
 </template>
 

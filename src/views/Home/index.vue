@@ -38,7 +38,7 @@ const count = ref(0)
 
 <style lang="less" scoped>
 // #cesiumContainer {
-//   position: absolute;
+//   position: absolut     e;
 //   width: 100%;
 //   height: 100%;
 // }

@@ -13,10 +13,16 @@ const routes = [
     path: "/test1",
     name: "test1",
     component: () => import("@/views/Test/test1.vue"),
-  },  {
+  },
+  {
     path: "/test2",
     name: "test2",
     component: () => import("@/views/Test/test2.vue"),
+  },
+  {
+    path: "/mixin",
+    name: "mixin",
+    component: () => import("@/views/Composables/index.vue"),
   },
   {
     path: "/:pathMatch(.*)",

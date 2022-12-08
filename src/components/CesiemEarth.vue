@@ -9,14 +9,14 @@ defineProps({
 onMounted(() => {
   // console.log(Cesium.VERSION)
   CesiumViewer("cesiumContainer");
-  window.viewer.imageryLayers.remove(window.viewer.imageryLayers.get(0))
-  let imagery = window.viewer.imageryLayers.addImageryProvider(
-    new Cesium.ArcGisMapServerImageryProvider({
-      url: 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer',
-      baseLayerPicker: false
-    })
-  );
-  imagery.brightness = 0.9;
+  // window.viewer.imageryLayers.remove(window.viewer.imageryLayers.get(0))
+  // let imagery = window.viewer.imageryLayers.addImageryProvider(
+  //   new Cesium.ArcGisMapServerImageryProvider({
+  //     url: 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer',
+  //     baseLayerPicker: false
+  //   })
+  // );
+  // imagery.brightness = 0.9;
   addSkybox();
 });
 onUnmounted(() => {
@@ -58,6 +58,7 @@ const count = ref(0)
 
 <style lang="less" scoped>
 #cesiumContainer {
+  z-index: 1;
   position: absolute;
   width: 100%;
   height: 100%;
