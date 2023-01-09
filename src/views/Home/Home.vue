@@ -28,7 +28,7 @@ const CesiumExample = [
     {
         name: "关羽",
         id: "蜀国",
-        loc: "河东郡解县（山西省运城市盐湖区解州镇）",
+        loc: "/UlitsTest",
     },
     {
         name: "刘备",
@@ -93,6 +93,18 @@ const Vue3Example = [
         loc: "河东郡解县（山西省运城市盐湖区解州镇）",
     },
 ]
+const OpenLayersExample = [
+    {
+        name: "地图切换",
+        id: "1",
+        loc: "/olmapchange",
+    },
+    {
+        name: " ",
+        id: "魏国",
+        loc: "/test1",
+    },
+]
 onMounted(() => {
 });
 
@@ -107,17 +119,24 @@ const count = ref(0)
                     <div class="title">{{ "CesiumExample" }}</div>
                     <div class="optional-list">
                         <div class="option" v-for="(item) in CesiumExample" :key="item.id" @click="jumpTo(item.loc)">{{
-                                item.name
+                            item.name
                         }}</div>
                     </div>
-
                 </div>
                 <div class="category-part">
                     <div class="title">{{ "Vue3Example" }}</div>
                     <div class="optional-list">
                         <div class="option" v-for="(item) in Vue3Example" :key="item.id" @click="jumpTo(item.loc)">{{
-                                item.name
+                            item.name
                         }}</div>
+                    </div>
+
+                </div>
+                <div class="category-part">
+                    <div class="title">{{ "OpenLayersExample" }}</div>
+                    <div class="optional-list">
+                        <div class="option" v-for="(item) in OpenLayersExample" :key="item.id"
+                            @click="jumpTo(item.loc)">{{ item.name }}</div>
                     </div>
 
                 </div>
@@ -135,6 +154,7 @@ const count = ref(0)
     display: flex;
     flex-direction: column;
     align-items: center;
+
     #Header {
         width: 100%;
         height: 10%;
@@ -181,12 +201,13 @@ const count = ref(0)
 
                     .option {
                         width: calc(100% / 6);
-                        text-align:center;
+                        text-align: center;
                         height: 25px;
                         margin-top: 5px;
                         float: left;
                         cursor: pointer;
                         color: #000000;
+
                         &:hover {
                             color: #116ed8;
                         }

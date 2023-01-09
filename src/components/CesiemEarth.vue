@@ -1,3 +1,10 @@
+<!--
+ * @Author: liqifeng
+ * @Date: 2022-12-05 16:46:03
+ * @LastEditors: liqifeng Mr.undefine@protonmail.com
+ * @LastEditTime: 2022-12-21 14:54:24
+ * @Description: 
+-->
 <script setup>
 import * as Cesium from "cesium";
 import { CesiumViewer } from "../ulits/cesium/CesiumViewer";
@@ -10,13 +17,12 @@ onMounted(() => {
   // console.log(Cesium.VERSION)
   CesiumViewer("cesiumContainer");
   // window.viewer.imageryLayers.remove(window.viewer.imageryLayers.get(0))
-  // let imagery = window.viewer.imageryLayers.addImageryProvider(
-  //   new Cesium.ArcGisMapServerImageryProvider({
-  //     url: 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer',
-  //     baseLayerPicker: false
-  //   })
-  // );
-  // imagery.brightness = 0.9;
+  window.viewer.imageryLayers.remove(window.viewer.imageryLayers.get(0));
+  let provider = new Cesium.ArcGisMapServerImageryProvider({
+    url: "http://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer",
+    tilingScheme: new Cesium.WebMercatorTilingScheme(),
+  });
+  window.viewer.imageryLayers.addImageryProvider(provider);
   addSkybox();
 });
 onUnmounted(() => {

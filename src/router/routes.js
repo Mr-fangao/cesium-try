@@ -25,6 +25,16 @@ const routes = [
     component: () => import("@/views/Composables/index.vue"),
   },
   {
+    path: "/UlitsTest",
+    name: "UlitsTest",
+    component: () => import("@/views/Test/UlitsTest.vue"),
+  },
+  {
+    path: "/olmapchange",
+    name: "olmapchange",
+    component: () => import("@/views/OlMapChange/OlMapChange.vue"),
+  },
+  {
     path: "/:pathMatch(.*)",
     name: "NotFound",
     component: () => import("../components/Page404.vue"),

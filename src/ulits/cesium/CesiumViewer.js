@@ -1,3 +1,10 @@
+/*
+ * @Author: liqifeng
+ * @Date: 2022-12-05 16:46:03
+ * @LastEditors: liqifeng Mr.undefine@protonmail.com
+ * @LastEditTime: 2022-12-20 14:10:09
+ * @Description: 
+ */
 import * as Cesium from "cesium";
 export function CesiumViewer(containerId = "cesiumContainer", mode) {
   Cesium.Ion.defaultAccessToken =
@@ -74,40 +81,77 @@ export function CesiumViewer(containerId = "cesiumContainer", mode) {
   return viewer;
 }
 
+export function getOsmMap() {
+  window.viewer.imageryLayers.remove(window.viewer.imageryLayers.get(0));
+  let imagery = window.viewer.imageryLayers.addImageryProvider(
+    new Cesium.UrlTemplateImageryProvider({
+      url: "https://tile-{s}.openstreetmap.fr/hot/{z}/{x}/{y}.png",
+      subdomains: ["a", "b", "c", "d"],
+    })
+  );
+}
+export function getAutonavi() {
+  window.viewer.imageryLayers.remove(window.viewer.imageryLayers.get(0));
+  let imagery = window.viewer.imageryLayers.addImageryProvider(
+    new Cesium.UrlTemplateImageryProvider({
+      url: "http://webst02.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scale=1&style=8",
+      minimumLevel: 3,
+      maximumLevel: 18,
+    })
+  );
+  let atLayer = new Cesium.UrlTemplateImageryProvider({
+    url: "http://webrd02.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}",
+    minimumLevel: 3,
+    maximumLevel: 18,
+  });
+  viewer.imageryLayers.addImageryProvider(atLayer);
+}
+export function getArcgismap() {
+  window.viewer.imageryLayers.remove(window.viewer.imageryLayers.get(0));
+  let provider = new Cesium.ArcGisMapServerImageryProvider({
+		url: "http://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer",
+		tilingScheme: new Cesium.WebMercatorTilingScheme(),
+	});
+  window.viewer.imageryLayers.addImageryProvider(provider);
+}
+
+
+
+export function zoomByLoc() {}
 /**
  * @Author: dongnan
  * @Description: 开发调试
  * @Date: 2021-08-01 13:02:09
  * @param {*} viewer
  */
-// function debugView(viewer) {
-// 	let handler = new Cesium.ScreenSpaceEventHandler(viewer.canvas);
-// 	handler.setInputAction(function (movement) {
-// 		let pickedFeature = viewer.scene.pick(movement.endPosition);
-// 		if (
-// 			Cesium.defined(pickedFeature) &&
-// 			Cesium.defined(pickedFeature.collection) &&
-// 			Cesium.defined(pickedFeature.collection.Type) &&
-// 			pickedFeature.collection.Type == "PrimitivePoints"
-// 		) {
-// 			viewer._container.style.cursor = "pointer";
-// 		} else {
-// 			viewer._container.style.cursor = "default";
-// 		}
-// 	}, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
-// 	viewer.camera.percentageChanged = 0.001;
-// 	viewer.camera.changed.addEventListener(function (moveEndPosition) {
-// 		let ellipsoid = viewer.scene.globe.ellipsoid;
-// 		let cartesian3 = viewer.camera.position;
-// 		let cartograhphic = ellipsoid.cartesianToCartographic(cartesian3);
-// 		let lat = Cesium.Math.toDegrees(cartograhphic.latitude);
-// 		let lng = Cesium.Math.toDegrees(cartograhphic.longitude);
-// 		let alt = cartograhphic.height;
-// 		console.log("位置:" + cartesian3);
-// 		console.log("相机高度:" + alt);
-// 		console.log("heading:", viewer.camera.heading + "," + "pitch:" + viewer.camera.pitch + "," + "roll:" + viewer.camera.roll);
-// 	});
-// }
+function debugView(viewer) {
+	let handler = new Cesium.ScreenSpaceEventHandler(viewer.canvas);
+	handler.setInputAction(function (movement) {
+		let pickedFeature = viewer.scene.pick(movement.endPosition);
+		if (
+			Cesium.defined(pickedFeature) &&
+			Cesium.defined(pickedFeature.collection) &&
+			Cesium.defined(pickedFeature.collection.Type) &&
+			pickedFeature.collection.Type == "PrimitivePoints"
+		) {
+			viewer._container.style.cursor = "pointer";
+		} else {
+			viewer._container.style.cursor = "default";
+		}
+	}, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
+	viewer.camera.percentageChanged = 0.001;
+	viewer.camera.changed.addEventListener(function (moveEndPosition) {
+		let ellipsoid = viewer.scene.globe.ellipsoid;
+		let cartesian3 = viewer.camera.position;
+		let cartograhphic = ellipsoid.cartesianToCartographic(cartesian3);
+		let lat = Cesium.Math.toDegrees(cartograhphic.latitude);
+		let lng = Cesium.Math.toDegrees(cartograhphic.longitude);
+		let alt = cartograhphic.height;
+		console.log("位置:" + cartesian3);
+		console.log("相机高度:" + alt);
+		console.log("heading:", viewer.camera.heading + "," + "pitch:" + viewer.camera.pitch + "," + "roll:" + viewer.camera.roll);
+	});
+}
 
 /**
  * @Author: dongnan
@@ -126,12 +170,6 @@ function getExtent(viewer) {
   return extent;
 }
 
-/**
- * @Author: dongnan
- * @Description: 计算画布中心距离为1px的两点的实际距离 单位米
- * @Date: 2021-07-31 17:45:25
- * @param {*} viewer
- */
 function getResolution(viewer) {
   let scene = viewer.scene;
   // 获取画布的大小
