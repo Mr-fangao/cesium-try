@@ -24,10 +24,30 @@ const tilelayers = [
     img_url: new URL("./img/tianditu_ter.png", import.meta.url).href,
     url: "http://t0.tianditu.com/DataServer?T=ter_w&tk=63eb152cd7f93f6aa703c3c5f25032a4&x={x}&y={y}&l={z}",
   },
-
+  {
+    id: "dark_map",
+    title: "暗黑色底图",
+    layerName: "baseMap",
+    img_url: new URL("./img/tianditu_ter.png", import.meta.url).href,
+    url: "http://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetPurplishBlue/MapServer/tile/{z}/{y}/{x}",
+  },
+  {
+    id: "color_map",
+    title: "彩色注记底图",
+    layerName: "baseMap",
+    img_url: new URL("./img/tianditu_ter.png", import.meta.url).href,
+    url: "http://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineCommunity/MapServer/tile/{z}/{y}/{x}",
+  },
+  {
+    id: "warm_map",
+    title: "暖色底图",
+    layerName: "baseMap",
+    img_url: new URL("./img/tianditu_ter.png", import.meta.url).href,
+    url: "https://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetWarm/MapServer/tile/{z}/{y}/{x}",
+  },
   {
     id: "map",
-    title: "ArcGIS底图",
+    title: "暖色底图",
     layerName: "baseMap",
     img_url: new URL("./img/tianditu_ter.png", import.meta.url).href,
     url: "https://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetWarm/MapServer/tile/{z}/{y}/{x}",
